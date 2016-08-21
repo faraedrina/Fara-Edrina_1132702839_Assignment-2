@@ -1,0 +1,52 @@
+import controlP5.*;
+ControlP5 cp5;
+
+float x;
+float y;
+float easing = 0.15;
+
+void setup() {
+  size(600, 300); 
+  noStroke();
+cp5 = new ControlP5(this);
+      cp5.addSlider("v1")
+         .setPosition(50, 150)
+         .setSize(500, 10)
+         .setRange(100, 300)
+         .setValue(300)
+         .setColorCaptionLabel(color(20,20,20));  
+}
+
+void draw() { 
+  background(0);
+  
+  float targetX = mouseX;
+  float dx = targetX - x;
+  x += dx * easing;
+  
+  float targetY = mouseY;
+  float dy = targetY - y;
+  y += dy * easing;
+  
+  fill(random(255), random(255), random(255));
+  ellipse(x, y, 40, 40);
+  
+  if (mousePressed == true) {
+    if (mouseButton == LEFT) {
+      fill(0);
+    } else if (mouseButton == RIGHT) { 
+      fill(255);
+    }
+  } else {
+    fill(255);
+  }
+  rect(mouseX, mouseY, 25, 25);
+  
+  if (mouseX < 300) {
+    rect(0, 0, 200, 300); // Left
+  } else if (mouseX > 300) {
+    rect(400, 0, 400, 300); // Middle
+  } else {
+    rect(150, 0, 300, 300); // Right
+  }
+}
